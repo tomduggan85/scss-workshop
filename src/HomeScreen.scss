@@ -1,0 +1,37 @@
+
+.home-screen {  
+  margin: 40px 100px;
+  display: flex;
+  justify-content: space-between;
+
+  .left-container {
+    width: 550px;
+
+    p {
+      line-height: 1.25;
+    }
+  }
+
+  .right-container {
+    width: 40vw;
+    position: relative;
+    background: linear-gradient(#111, transparent);
+
+    img {
+      width: 50%;
+      vertical-align: bottom;
+
+      &:nth-child(2n + 1) {
+        transform: scaleX(-1); /* Horizontally reflect every second image */
+      }
+    }
+  }
+
+  .join-button {
+    margin-top: 60px;
+    padding: 20px 40px;
+    border-radius: 5px;
+    display: inline-block;
+    font-family: 'Press Start 2P';
+  }
+}
