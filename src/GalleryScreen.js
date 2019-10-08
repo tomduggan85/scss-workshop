@@ -1,5 +1,6 @@
 import React from 'react'
 import './GalleryScreen.scss'
+import { CSSTransition } from 'react-transition-group'
 
 const GALLERY_IMAGES = [
   '/gallery1.jpg',
@@ -44,6 +45,7 @@ class GalleryScreen extends React.Component {
 
   render() {
     const { selectedGalleryIndex } = this.state
+
     return (
       <div className='gallery-screen'>
         <h1>Robot Gallery</h1>
@@ -52,6 +54,7 @@ class GalleryScreen extends React.Component {
         <div className='gallery-container'>
           {GALLERY_IMAGES.map(( image, i ) => {
             const isSelected = i === selectedGalleryIndex
+            /* TODO: Wrap each image tag in a CSSTransition component */
             return (
               <img
                 key={`image-${ i }`}
