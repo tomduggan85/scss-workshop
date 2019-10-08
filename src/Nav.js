@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 /*
   TODO: create and import a scss file for the Nav styles
 
-  Use a scss variable for the orange color
+  Use a scss variable for the orange color (we can use #ff9902)
   Use a mixin for the hover styles on the clickable elements
 
 */
