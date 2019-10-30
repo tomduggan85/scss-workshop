@@ -10,37 +10,12 @@ const GALLERY_IMAGES = [
   '/gallery5.jpg',
 ]
 
+const ENABLE_AUTOPLAY = false /* set to true to turn on slideshow auto-play */
 const AUTOPLAY_TIME = 3000
 
 class GalleryScreen extends React.Component {
   state = {
     selectedGalleryIndex: 0
-  }
-
-  componentDidMount() {
-    this.slideshowTimer = setInterval( this.gotoNextImage, AUTOPLAY_TIME )
-  }
-
-  componentWillUnmount() {
-    clearTimeout( this.slideshowTimer )
-  }
-
-  gotoNextImage = () => {
-    const { selectedGalleryIndex } = this.state
-    if ( selectedGalleryIndex === GALLERY_IMAGES.length - 1 ) {
-      this.setState({ selectedGalleryIndex: 0 })
-    }
-    else {
-      this.setState({ selectedGalleryIndex: selectedGalleryIndex + 1 }) 
-    }
-  }
-
-  onClickGalleryButton = e => {
-    const { galleryIndex } = e.target.dataset
-    this.setState({ selectedGalleryIndex: parseInt( galleryIndex, 10 ) })
-    /* Restart the autoplay interval, so that the next slide shows exactly 3 seconds after this click */
-    clearTimeout( this.slideshowTimer )
-    this.slideshowTimer = setInterval( this.gotoNextImage, AUTOPLAY_TIME )
   }
 
   render() {
@@ -54,7 +29,7 @@ class GalleryScreen extends React.Component {
         <div className='gallery-container'>
           {GALLERY_IMAGES.map(( image, i ) => {
             const isSelected = i === selectedGalleryIndex
-            /* TODO: Wrap each image tag in a CSSTransition component */
+            /* TODO: Wrap each image tag in a CSSTransition component which has these props: in, timeout, classNames, appear */
             return (
               <img
                 key={`image-${ i }`}
@@ -81,6 +56,36 @@ class GalleryScreen extends React.Component {
         </div>
       </div>
     )
+  }
+
+  componentDidMount() {
+    if ( ENABLE_AUTOPLAY ) {
+      this.slideshowTimer = setInterval( this.gotoNextImage, AUTOPLAY_TIME )
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout( this.slideshowTimer )
+  }
+
+  gotoNextImage = () => {
+    const { selectedGalleryIndex } = this.state
+    if ( selectedGalleryIndex === GALLERY_IMAGES.length - 1 ) {
+      this.setState({ selectedGalleryIndex: 0 })
+    }
+    else {
+      this.setState({ selectedGalleryIndex: selectedGalleryIndex + 1 }) 
+    }
+  }
+
+  onClickGalleryButton = e => {
+    const { galleryIndex } = e.target.dataset
+    this.setState({ selectedGalleryIndex: parseInt( galleryIndex, 10 ) })
+    if ( ENABLE_AUTOPLAY ) {
+      /* Restart the autoplay interval, so that the next slide shows exactly 3 seconds after this click */
+      clearTimeout( this.slideshowTimer )
+      this.slideshowTimer = setInterval( this.gotoNextImage, AUTOPLAY_TIME )
+    }
   }
 }
 
